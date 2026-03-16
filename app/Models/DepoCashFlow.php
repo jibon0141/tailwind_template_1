@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class DepoCashFlow extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'date',
+        'description',
+        'invoice_id',
+        'dr_amount',
+        'cr_amount',
+        'balance',
+        'depo_id',
+        'account_id',
+        'voucher_route',
+        'voucher_id',
+    ];
+
+    protected $casts = [
+        'date' => 'date',
+        'dr_amount' => 'decimal:2',
+        'cr_amount' => 'decimal:2',
+        'balance' => 'decimal:2',
+    ];
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
+
+
+    public function depo()
+    {
+        return $this->belongsTo(Depo::class);
+    }
+
+}
