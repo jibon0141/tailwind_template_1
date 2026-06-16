@@ -285,7 +285,7 @@
     </a>
 
     <p class="text-center text-white/20 text-xs mt-8 animate-in animate-in-d5">
-        &copy; {{ date('Y') }}Easy IT Solution LTD. All Right Reserved.
+        &copy; {{ date('Y') }} Easy IT Solution LTD. All Right Reserved.
     </p>
 
 </div>

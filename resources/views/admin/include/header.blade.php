@@ -1,4 +1,4 @@
-<header class="top-header sticky top-0 z-30 flex items-center justify-between px-4 h-18 px-5 py-4 lg:px-6">
+<header class="top-header sticky top-0 z-30 flex items-center justify-between h-18 px-5 py-4 lg:px-6">
     <div class="flex items-center gap-2">
         <button id="sidebar-toggle"
                 class="header-btn md:hidden">
