@@ -34,7 +34,6 @@ class HomeController extends Controller
 
     public function adminDashboard()
     {
-
         return view('admin.extends.dashboard');
     }
 
@@ -87,15 +86,8 @@ class HomeController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->back()->with('success', 'Logged out successfully');
+        return redirect()->back()->with('success', 'Logged out successfully!');
     }
-
-
-    public function landingPage(){
-        $company=CompanySetting::first();
-        return view('landing',compact('company'));
-    }
-
 
 
 }
