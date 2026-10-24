@@ -19,8 +19,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'user_id',
+        'phone',
         'email',
         'user_type',
+        'ref_id',
+        'designation_id',
         'status',
         'password',
         'role'
@@ -47,19 +51,53 @@ class User extends Authenticatable
         'created_at' => 'datetime',
     ];
 
+    public function designation(){
+        return $this->belongsTo(Designation::class,'designation_id');
+    }
+
+    public function sells(){
+        return $this->hasMany(Sell::class);
+    }
+
+    public function commissionDistributes(){
+        return $this->hasMany(CommissionDistribute::class);
+    }
+
+    public function detail(){
+        return $this->hasOne(UserDetail::class);
+    }
+
+    public function nominees(){
+        return $this->hasMany(UserNominee::class);
+    }
+
+    public function paymentMethods(){
+        return $this->hasMany(UserPaymentMethod::class);
+    }
+
+    public function permissions(){
+        return $this->hasMany(AdminUserPermission::class);
+    }
 
 
-    public function employee()
+    protected static function booted()
     {
-        return $this->hasOne(Employee::class, 'user_id');
+        static::creating(function ($user) {
+            $lastUser = self::whereNotNull('user_id')
+                ->orderByDesc('user_id')
+                ->first();
+
+            if ($lastUser) {
+                $lastNumber = (int) substr($lastUser->user_id, 3);
+                $nextNumber = $lastNumber + 1;
+            } else {
+                $nextNumber = 1;
+            }
+
+            $user->user_id = 'LDZ' . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
+        });
     }
 
-    public function depo()
-    {
-        return $this->hasOne(Depo::class, 'user_id');
-    }
 
-    public function debitVouchers(){
-        return $this->hasMany(DebitVoucher::class,'user_id','id');
-    }
 }
+
