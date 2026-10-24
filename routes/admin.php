@@ -1,4 +1,7 @@
 <?php
+
+use App\Http\Controllers\Backend\Admin\ProfileController;
+use App\Http\Controllers\Backend\CompanySetting\CompanySettingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,6 +16,12 @@ Route::group(['namespace' => 'Admin'], function () {
 
 
 Route::middleware(['super_admin:admin','block_purchase_admin'])->group(function () {
+
+    // Profile Route
+    Route::group(['namespace' => 'Admin'], function () {
+        Route::get('/profile/password', [ProfileController::class, 'passwordEdit'])->name('admin.profile.password.edit');
+        Route::post('/profile/password/update', [ProfileController::class, 'passwordUpdate'])->name('admin.profile.password.update');
+    });
 
     // Company Route
     Route::group(['namespace' => 'CompanySetting'], function () {

@@ -68,14 +68,31 @@
 </button>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    function hideLoadingOverlay() {
+        var overlay = document.getElementById('loading-overlay');
+        if (overlay) {
+            overlay.classList.remove('active');
+        }
+    }
+
+    function showLoadingOverlay() {
         var overlay = document.getElementById('loading-overlay');
         if (overlay) {
             overlay.classList.add('active');
-            window.addEventListener('load', function () {
-                setTimeout(function () { overlay.classList.remove('active'); }, 300);
-            });
-            setTimeout(function () { overlay.classList.remove('active'); }, 1500);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        showLoadingOverlay();
+        window.addEventListener('load', function () {
+            setTimeout(hideLoadingOverlay, 300);
+        });
+        setTimeout(hideLoadingOverlay, 1500);
+    });
+
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            hideLoadingOverlay();
         }
     });
 </script>
